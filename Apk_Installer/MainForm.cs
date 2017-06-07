@@ -96,7 +96,6 @@ namespace Apk_Installer
                     int index = comboBox1.Items.Add(item);
                     if (device.Serial.StartsWith(textIP.Text))
                     {
-                        //button1.Text = "Dc";
                         if (set) num = index;
                     }
                 }
@@ -109,7 +108,9 @@ namespace Apk_Installer
             }
             else
             {
-                //button1.Text = "Connect";
+                labelDevice.Text = setLabel();
+                labelAndroid.Text = setLabel();
+                labelStatus.Text = setLabel();
                 btnInstall.Enabled = false;
             }
         }
