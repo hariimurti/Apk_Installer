@@ -68,7 +68,7 @@ namespace Apk_Installer
                 labelName.Text = setLabel(Apk.getAppLabel());
                 labelVersion.Text = setLabel(Apk.getVersion());
                 pictureBox1.Image = Image.FromStream(Apk.getIcon());
-                button2.Enabled = (comboBox1.Items.Count > 0);
+                btnInstall.Enabled = (comboBox1.Items.Count > 0);
             }
             else
             {
@@ -76,7 +76,7 @@ namespace Apk_Installer
                 labelName.Text = setLabel();
                 labelVersion.Text = setLabel();
                 pictureBox1.Image = Properties.Resources.apk.ToBitmap();
-                button2.Enabled = false;
+                btnInstall.Enabled = false;
             }
         }
 
@@ -105,12 +105,12 @@ namespace Apk_Installer
             if (comboBox1.Items.Count > 0)
             {
                 comboBox1.SelectedIndex = num;
-                button2.Enabled = File.Exists(ApkFile.Path);
+                btnInstall.Enabled = File.Exists(ApkFile.Path);
             }
             else
             {
                 //button1.Text = "Connect";
-                button2.Enabled = false;
+                btnInstall.Enabled = false;
             }
         }
 
@@ -147,13 +147,13 @@ namespace Apk_Installer
 
         private void setBusy(bool value)
         {
-            button1.Enabled = !value;
-            button2.Enabled = !value;
-            button3.Enabled = !value;
+            btnConnect.Enabled = !value;
+            btnInstall.Enabled = !value;
+            btnScan.Enabled = !value;
             comboBox1.Enabled = !value;
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void btnConnect_Click(object sender, EventArgs e)
         {
             setBusy(true);
             await Task.Run(() => ADB.Connect(textIP.Text, textPort.Text));
@@ -162,12 +162,12 @@ namespace Apk_Installer
             ScanDevice(true);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnScan_Click(object sender, EventArgs e)
         {
             ScanDevice();
         }
 
-        private async void button2_Click(object sender, EventArgs e)
+        private async void btnInstall_Click(object sender, EventArgs e)
         {
             setBusy(true);
             await Task.Run(() =>
