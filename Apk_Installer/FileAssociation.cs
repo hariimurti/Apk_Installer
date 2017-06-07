@@ -33,8 +33,15 @@ namespace Apk_Installer
 
         public static void UnRegister()
         {
-            Registry.ClassesRoot.DeleteSubKeyTree(APK_EXTENSION);
-            Registry.ClassesRoot.DeleteSubKeyTree(APK_FILE);
+            try
+            {
+                Registry.ClassesRoot.DeleteSubKeyTree(APK_EXTENSION);
+                Registry.ClassesRoot.DeleteSubKeyTree(APK_FILE);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Registry Error: " + ex.Message);
+            }
         }
 
         public static bool isRegistered()
