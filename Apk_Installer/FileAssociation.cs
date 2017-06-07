@@ -46,11 +46,24 @@ namespace Apk_Installer
 
         public static bool isRegistered()
         {
-            if (Registry.ClassesRoot.OpenSubKey(APK_EXTENSION, false) == null)
-                return false;
+            using (RegistryKey registryKey = Registry.ClassesRoot.OpenSubKey(APK_EXTENSION, false))
+            {
+                if (registryKey == null)
+                    return false;
 
-            if (Registry.ClassesRoot.OpenSubKey(APK_FILE, false) == null)
-                return false;
+                if (registryKey.GetValue("").ToString() != APK_FILE)
+                    return false;
+            }
+
+            using (RegistryKey registryKey = Registry.ClassesRoot.OpenSubKey(APK_FILE, false))
+            {
+                if (registryKey == null)
+                    return false;
+
+                string executable = Path.GetFullPath(System.Reflection.Assembly.GetEntryAssembly().Location);
+                if (registryKey.OpenSubKey("Shell\\Open\\Command").GetValue("").ToString() != $"\"{executable}\" \"%1\"")
+                    return false;
+            }
 
             return true;
         }
