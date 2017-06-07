@@ -83,8 +83,8 @@ namespace Apk_Installer
         private void ScanDevice(bool set = false)
         {
             int num = 0;
-            comboBox1.Items.Clear();
-            
+            comboBox1_Clear();
+
             foreach (DataModelDevicesItem device in ADB.Devices())
             {
                 if (device.Device != null)
@@ -106,13 +106,15 @@ namespace Apk_Installer
                 comboBox1.SelectedIndex = num;
                 btnInstall.Enabled = File.Exists(ApkFile.Path);
             }
-            else
-            {
-                labelDevice.Text = setLabel();
-                labelAndroid.Text = setLabel();
-                labelStatus.Text = setLabel();
-                btnInstall.Enabled = false;
-            }
+        }
+
+        private void comboBox1_Clear()
+        {
+            comboBox1.Items.Clear();
+            labelDevice.Text = setLabel();
+            labelAndroid.Text = setLabel();
+            labelStatus.Text = setLabel();
+            btnInstall.Enabled = false;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
