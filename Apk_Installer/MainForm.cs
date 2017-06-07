@@ -150,7 +150,9 @@ namespace Apk_Installer
             btnConnect.Enabled = !value;
             btnInstall.Enabled = !value;
             btnScan.Enabled = !value;
+
             comboBox1.Enabled = !value;
+            groupBox1.AllowDrop = !value;
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
