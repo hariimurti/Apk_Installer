@@ -97,8 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apk.ico" />
-    <None Include="Resources\Igh0zt-Ios7-Style-Metro-Ui-MetroUI-Folder-OS-OS-Android.ico" />
-    <None Include="Resources\Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
