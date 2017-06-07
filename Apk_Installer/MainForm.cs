@@ -145,9 +145,20 @@ namespace Apk_Installer
             return text != null ? $": {text}" : ": ...";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void setBusy(bool value)
         {
-            ADB.Connect(textIP.Text, textPort.Text);
+            button1.Enabled = !value;
+            button2.Enabled = !value;
+            button3.Enabled = !value;
+            comboBox1.Enabled = !value;
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            setBusy(true);
+            await Task.Run(() => ADB.Connect(textIP.Text, textPort.Text));
+
+            setBusy(false);
             ScanDevice(true);
         }
 
@@ -156,12 +167,18 @@ namespace Apk_Installer
             ScanDevice();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
-            if (ADB.Instance().Install(ApkFile.Path, "-r"))
-                MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            else
-                MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            setBusy(true);
+            await Task.Run(() =>
+            {
+                if (ADB.Instance().Install(ApkFile.Path, "-r"))
+                    MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                else
+                    MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            });
+
+            setBusy(false);
         }
 
         private void groupBox1_DragEnter(object sender, DragEventArgs e)
