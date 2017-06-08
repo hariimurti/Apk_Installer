@@ -206,5 +206,11 @@ namespace Apk_Installer
                 }
             }
         }
+
+        private void txtNumeric_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(char.IsDigit(e.KeyChar) || (e.KeyChar == '.') ||
+                (e.KeyChar == (char)Keys.Back) || (e.KeyChar == (char)Keys.Delete));
+        }
     }
 }

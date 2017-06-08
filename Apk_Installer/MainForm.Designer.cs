@@ -38,6 +38,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.textPort = new System.Windows.Forms.TextBox();
             this.btnScan = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -53,8 +55,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnInstall = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -162,6 +162,24 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2. ADB Devices";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(75, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(10, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = ":";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(75, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(10, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = ":";
+            // 
             // textPort
             // 
             this.textPort.Location = new System.Drawing.Point(199, 18);
@@ -170,6 +188,7 @@
             this.textPort.TabIndex = 12;
             this.textPort.Text = "5555";
             this.textPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeric_KeyPress);
             // 
             // btnScan
             // 
@@ -210,6 +229,7 @@
             this.textIP.TabIndex = 8;
             this.textIP.Text = "192.168.1.101";
             this.textIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textIP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeric_KeyPress);
             // 
             // label4
             // 
@@ -312,24 +332,6 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "3. Connected Device";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(75, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(10, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = ":";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(75, 49);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(10, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = ":";
             // 
             // MainForm
             // 
