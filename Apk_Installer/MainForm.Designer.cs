@@ -188,6 +188,7 @@
             this.textPort.TabIndex = 12;
             this.textPort.Text = "5555";
             this.textPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textPort.TextChanged += new System.EventHandler(this.txtValidation);
             this.textPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeric_KeyPress);
             // 
             // btnScan
@@ -229,6 +230,7 @@
             this.textIP.TabIndex = 8;
             this.textIP.Text = "192.168.1.101";
             this.textIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textIP.TextChanged += new System.EventHandler(this.txtValidation);
             this.textIP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeric_KeyPress);
             // 
             // label4

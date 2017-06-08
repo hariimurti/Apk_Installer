@@ -11,6 +11,7 @@ using System.IO;
 using AndroidCtrl;
 using AndroidCtrl.ADB;
 using AndroidCtrl.Tools;
+using System.Text.RegularExpressions;
 
 namespace Apk_Installer
 {
@@ -211,6 +212,23 @@ namespace Apk_Installer
         {
             e.Handled = !(char.IsDigit(e.KeyChar) || (e.KeyChar == '.') ||
                 (e.KeyChar == (char)Keys.Back) || (e.KeyChar == (char)Keys.Delete));
+        }
+
+        private bool onValidation = false;
+        private void txtValidation(object sender, EventArgs e)
+        {
+            if (!onValidation)
+            {
+                onValidation = true;
+                Regex regex = new Regex(@"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})");
+                Match match = regex.Match(textIP.Text);
+                btnConnect.Enabled = match.Success;
+                if (match.Success)
+                    textIP.Text = match.Value;
+
+                textPort.Text = textPort.Text.Replace(".", "");
+                onValidation = false;
+            }
         }
     }
 }
