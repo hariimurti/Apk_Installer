@@ -17,14 +17,16 @@ namespace Apk_Installer
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private static string LoadedApk = null;
+
+        public MainForm(string arg)
         {
             InitializeComponent();
             groupBox1.AllowDrop = true;
             pictureBox1.Image = Properties.Resources.apk.ToBitmap();
 
             InitializeAdb();
-            InitializeApk();
+            InitializeApk(arg);
             ScanDevice();
             SetAssociation();
         }
@@ -57,19 +59,17 @@ namespace Apk_Installer
             ADB.Start();
         }
 
-        private void InitializeApk(string loaded = null)
+        private void InitializeApk(string fileApk = null)
         {
-            if (loaded != null)
-                ApkFile.Path = loaded;
-
-            if (File.Exists(ApkFile.Path))
+            if (File.Exists(fileApk) && fileApk.ToLower().EndsWith(".apk"))
             {
-                ApkFile Apk = new ApkFile();
+                ApkFile Apk = new ApkFile(fileApk);
                 labelPackage.Text = setLabel(Apk.getPackageName());
                 labelName.Text = setLabel(Apk.getAppLabel());
                 labelVersion.Text = setLabel(Apk.getVersion());
-                pictureBox1.Image = Image.FromStream(Apk.getIcon());
-                btnInstall.Enabled = (comboBox1.Items.Count > 0);
+                pictureBox1.Image = setIcon(Apk.getIcon());
+                btnInstall.Enabled = (comboBox1.Items.Count > 0) && Apk.isApk();
+                LoadedApk = Apk.isApk() ? fileApk : null;
             }
             else
             {
@@ -78,6 +78,7 @@ namespace Apk_Installer
                 labelVersion.Text = setLabel();
                 pictureBox1.Image = Properties.Resources.apk.ToBitmap();
                 btnInstall.Enabled = false;
+                LoadedApk = null;
             }
         }
 
@@ -105,7 +106,7 @@ namespace Apk_Installer
             if (comboBox1.Items.Count > 0)
             {
                 comboBox1.SelectedIndex = num;
-                btnInstall.Enabled = File.Exists(ApkFile.Path);
+                btnInstall.Enabled = LoadedApk != null;
             }
         }
 
@@ -149,6 +150,14 @@ namespace Apk_Installer
             return text != null ? $": {text}" : ": ...";
         }
 
+        private Image setIcon(Stream img = null)
+        {
+            if (img == null)
+                return Properties.Resources.apk.ToBitmap();
+            else
+                return Image.FromStream(img);
+        }
+
         private void setBusy(bool value)
         {
             btnConnect.Enabled = !value;
@@ -178,10 +187,17 @@ namespace Apk_Installer
             setBusy(true);
             await Task.Run(() =>
             {
-                if (ADB.Instance().Install(ApkFile.Path, "-r"))
-                    MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                if (LoadedApk != null)
+                {
+                    if (ADB.Instance().Install(LoadedApk, "-r"))
+                        MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    else
+                        MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 else
-                    MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                {
+                    MessageBox.Show("There is no APK file!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             });
 
             setBusy(false);

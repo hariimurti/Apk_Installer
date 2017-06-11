@@ -20,18 +20,24 @@ namespace Apk_Installer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            string setArg = null;
             if (args.Length > 0)
             {
-                if (args[0].ToLower().EndsWith(".apk"))
+                foreach (string arg in args)
                 {
-                    ApkFile.Path = args[0];
+                    if (arg.ToLower().EndsWith(".apk"))
+                    {
+                        setArg = arg;
+                        break;
+                    }
                 }
+                
                 if (args[0].ToLower() == "-unreg")
                 {
                     FileAssociation.UnRegister();
                 }
             }
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(setArg));
         }
     }
 }

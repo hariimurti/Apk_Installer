@@ -7,12 +7,18 @@ namespace Apk_Installer
 {
     class ApkFile
     {
-        public static string Path { get; set; }
         private DataModelDumpBadging apk;
+        private string pathApk;
         
-        public ApkFile()
+        public ApkFile(string pathApk)
         {
-            apk = AAPT.Instance.Dump.Badging(Path);
+            this.pathApk = pathApk;
+            apk = AAPT.Instance.Dump.Badging(pathApk);
+        }
+
+        public bool isApk()
+        {
+            return getPackageName() != null;
         }
 
         public string getPackageName()
@@ -35,7 +41,7 @@ namespace Apk_Installer
             if (apk != null)
             {
                 Stream memoryStream = new MemoryStream();
-                using (ZipStorer zipStorer = ZipStorer.Open(Path, FileAccess.Read))
+                using (ZipStorer zipStorer = ZipStorer.Open(pathApk, FileAccess.Read))
                 {
                     foreach (ZipStorer.ZipFileEntry zipFileEntry in zipStorer.ReadCentralDir())
                     {
