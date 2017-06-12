@@ -76,7 +76,7 @@ namespace Apk_Installer
                 labelPackage.Text = setLabel();
                 labelName.Text = setLabel();
                 labelVersion.Text = setLabel();
-                pictureBox1.Image = Properties.Resources.apk.ToBitmap();
+                pictureBox1.Image = setIcon();
                 btnInstall.Enabled = false;
                 LoadedApk = null;
             }
@@ -161,7 +161,7 @@ namespace Apk_Installer
         private void setBusy(bool value)
         {
             btnConnect.Enabled = !value;
-            btnInstall.Enabled = !value;
+            btnInstall.Enabled = !value && (LoadedApk != null) && (comboBox1.Items.Count > 0);
             btnScan.Enabled = !value;
 
             comboBox1.Enabled = !value;
@@ -184,23 +184,28 @@ namespace Apk_Installer
 
         private async void btnInstall_Click(object sender, EventArgs e)
         {
-            setBusy(true);
-            await Task.Run(() =>
+            if (LoadedApk != null)
             {
-                if (LoadedApk != null)
+                setBusy(true);
+                await Task.Run(() =>
                 {
                     if (ADB.Instance().Install(LoadedApk, "-r"))
+                    {
                         MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        LoadedApk = null;
+                    }
                     else
                         MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    MessageBox.Show("There is no APK file!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            });
+                });
 
-            setBusy(false);
+                if (LoadedApk == null)
+                    InitializeApk();
+                setBusy(false);
+            }
+            else
+            {
+                MessageBox.Show("There is no APK file!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void groupBox1_DragEnter(object sender, DragEventArgs e)
