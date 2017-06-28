@@ -87,6 +87,8 @@ namespace Apk_Installer
 
         private void ScanDevice(bool set = false)
         {
+            if (!ADB.IsStarted) ADB.Start();
+
             int num = 0;
             comboBox1_Clear();
 
@@ -169,53 +171,81 @@ namespace Apk_Installer
                 return Image.FromStream(img);
         }
 
-        private void setBusy(bool value)
+        private void setBusy(int groupbox, bool value)
         {
-            btnConnect.Enabled = !value;
-            btnInstall.Enabled = !value && (LoadedApk != null) && (comboBox1.Items.Count > 0);
-            btnScan.Enabled = !value;
-
-            comboBox1.Enabled = !value;
             groupBox1.AllowDrop = !value;
+            groupBox1.Text = !value ? "1. APK File ( Drag && Drop Here )" : "1. APK File";
+
+            groupBox2.Enabled = !value;
+            groupBox3.Enabled = !value;
+
+            if (groupbox == 1)
+            {
+                groupBox2.Text = !value ? "2. ADB Devices" : "2. Connecting to Devices ( please wait )";
+            }
+            else if (groupbox == 2)
+            {
+                groupBox2.Text = !value ? "2. ADB Devices" : "2. Scanning Devices ( please wait )";
+            }
+            else if (groupbox == 3)
+            {
+                groupBox3.Text = !value ? "3. Connected Device" : "3. Installing to Device ( please wait )";
+            }
+
+            btnInstall.Enabled = !value && (LoadedApk != null) && (comboBox1.Items.Count > 0);
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
         {
-            setBusy(true);
+            setBusy(1, true);
+
+            if (!ADB.IsStarted) ADB.Start();
             await Task.Run(() => ADB.Connect(textIP.Text, textPort.Text));
 
-            setBusy(false);
+            setBusy(2, true);
             ScanDevice(true);
+
+            setBusy(2, false);
         }
 
         private void btnScan_Click(object sender, EventArgs e)
         {
+            setBusy(2, true);
             ScanDevice();
+
+            setBusy(2, false);
         }
 
         private async void btnInstall_Click(object sender, EventArgs e)
         {
             if (LoadedApk != null)
             {
-                setBusy(true);
-                await Task.Run(() =>
+                if (ADB.IsStarted)
                 {
-                    if (ADB.Instance().Install(LoadedApk, "-r"))
+                    setBusy(3, true);
+                    await Task.Run(() =>
                     {
-                        MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        LoadedApk = null;
-                    }
-                    else
-                        MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                });
+                        if (ADB.Instance().Install(LoadedApk, "-r"))
+                        {
+                            MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            LoadedApk = null;
+                        }
+                        else
+                            MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    });
 
-                if (LoadedApk == null)
-                    InitializeApk();
-                setBusy(false);
+                    if (LoadedApk == null)
+                        InitializeApk();
+                    setBusy(3, false);
+                }
+                else
+                {
+                    MessageBox.Show("ADB is not running!!! Solve: step no.2", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
-                MessageBox.Show("There is no APK file!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("There is no APK file!!! Solve: step no.1", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
