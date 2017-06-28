@@ -285,9 +285,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(11, 65);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.Size = new System.Drawing.Size(54, 13);
             this.label8.TabIndex = 12;
-            this.label8.Text = "UpTime";
+            this.label8.Text = "Arch CPU";
             // 
             // label9
             // 

@@ -130,11 +130,11 @@ namespace Apk_Installer
             string brand = ADB.Instance().Device.BuildProperties.Get("ro.product.brand");
             string name = ADB.Instance().Device.BuildProperties.Get("ro.product.name");
             string android = ADB.Instance().Device.BuildProperties.Get("ro.build.version.release");
-            string uptime = ADB.Instance().Device.Uptime().Up;
+            string cpu = ADB.Instance().Device.BuildProperties.Get("ro.product.cpu.abi");
 
             labelDevice.Text = setLabel(UpperCaseFirst($"{brand} {name}"));
             labelAndroid.Text = setLabel(android);
-            labelStatus.Text = setLabel(uptime);
+            labelStatus.Text = setLabel(cpu);
         }
 
         private static string UpperCaseFirst(string text)
