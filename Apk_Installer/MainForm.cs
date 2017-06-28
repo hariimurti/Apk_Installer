@@ -139,13 +139,21 @@ namespace Apk_Installer
 
         private static string UpperCaseFirst(string text)
         {
-            string result = null;
-            string[] words = text.Split(' ');
-            foreach (string word in words)
+            try
             {
-                result += char.ToUpper(word[0]) + word.Substring(1) + " ";
+                string result = null;
+                string[] words = text.Split(' ');
+                foreach (string word in words)
+                {
+                    result += char.ToUpper(word[0]) + word.Substring(1) + " ";
+                }
+                return result.Trim();
             }
-            return result.Trim();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.Message);
+                return text;
+            }
         }
 
         private string setLabel(string text = null)
