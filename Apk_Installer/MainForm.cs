@@ -22,6 +22,9 @@ namespace Apk_Installer
         public MainForm(string arg)
         {
             InitializeComponent();
+
+            this.Text = Application.ProductName + " v" + Application.ProductVersion.Substring(0, 3);
+
             groupBox1.AllowDrop = true;
             pictureBox1.Image = Properties.Resources.apk.ToBitmap();
 
