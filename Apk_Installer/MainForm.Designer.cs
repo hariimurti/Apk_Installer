@@ -74,6 +74,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(327, 92);
@@ -177,6 +178,7 @@
             this.groupBox2.Controls.Add(this.textIP);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.Control;
             this.groupBox2.Location = new System.Drawing.Point(12, 110);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(327, 79);
@@ -204,6 +206,7 @@
             // 
             // textPort
             // 
+            this.textPort.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textPort.Location = new System.Drawing.Point(199, 18);
             this.textPort.Name = "textPort";
             this.textPort.Size = new System.Drawing.Size(49, 20);
@@ -216,6 +219,7 @@
             // btnScan
             // 
             this.btnScan.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnScan.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.btnScan.Location = new System.Drawing.Point(254, 44);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(60, 23);
@@ -236,6 +240,7 @@
             // btnConnect
             // 
             this.btnConnect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConnect.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.btnConnect.Location = new System.Drawing.Point(254, 17);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(60, 23);
@@ -246,6 +251,7 @@
             // 
             // textIP
             // 
+            this.textIP.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textIP.Location = new System.Drawing.Point(91, 18);
             this.textIP.Name = "textIP";
             this.textIP.Size = new System.Drawing.Size(102, 20);
@@ -268,6 +274,7 @@
             // 
             this.comboBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(91, 45);
             this.comboBox1.Name = "comboBox1";
@@ -333,6 +340,7 @@
             // 
             this.btnInstall.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnInstall.Enabled = false;
+            this.btnInstall.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.btnInstall.Location = new System.Drawing.Point(254, 19);
             this.btnInstall.Name = "btnInstall";
             this.btnInstall.Size = new System.Drawing.Size(60, 60);
@@ -350,6 +358,7 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.labelDevice);
             this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.Control;
             this.groupBox3.Location = new System.Drawing.Point(12, 195);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(327, 91);
@@ -361,6 +370,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(352, 298);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
