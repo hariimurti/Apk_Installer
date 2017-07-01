@@ -24,6 +24,7 @@ namespace Apk_Installer
             InitializeComponent();
 
             this.Text = Application.ProductName + " v" + Application.ProductVersion.Substring(0, 3);
+            FileAssociation.SetAssociation();
 
             groupBox1.AllowDrop = true;
             pictureBox1.Image = Properties.Resources.apk.ToBitmap();
@@ -31,16 +32,6 @@ namespace Apk_Installer
             InitializeAdb();
             InitializeApk(arg);
             ScanDevice();
-            SetAssociation();
-        }
-
-        private void SetAssociation()
-        {
-            if (!FileAssociation.isRegistered())
-            {
-                DialogResult askToSet = MessageBox.Show("Set this for default opening file apk?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (askToSet == DialogResult.Yes) FileAssociation.Register();
-            }
         }
 
         private void InitializeAdb()

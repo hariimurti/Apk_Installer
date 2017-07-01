@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Apk_Installer
 {
@@ -66,6 +67,16 @@ namespace Apk_Installer
             }
 
             return true;
+        }
+
+        public static void SetAssociation()
+        {
+            if (!isRegistered())
+            {
+                DialogResult askToSet = MessageBox.Show("Set this for default opening file apk?",
+                    Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (askToSet == DialogResult.Yes) Register();
+            }
         }
     }
 }
