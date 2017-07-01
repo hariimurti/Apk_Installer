@@ -47,7 +47,7 @@
             this.textIP = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.labelStatus = new System.Windows.Forms.Label();
+            this.labelRoot = new System.Windows.Forms.Label();
             this.labelAndroid = new System.Windows.Forms.Label();
             this.labelDevice = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -253,14 +253,14 @@
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // labelStatus
+            // labelRoot
             // 
-            this.labelStatus.AutoEllipsis = true;
-            this.labelStatus.Location = new System.Drawing.Point(75, 66);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(173, 13);
-            this.labelStatus.TabIndex = 15;
-            this.labelStatus.Text = ": ...";
+            this.labelRoot.AutoEllipsis = true;
+            this.labelRoot.Location = new System.Drawing.Point(75, 66);
+            this.labelRoot.Name = "labelRoot";
+            this.labelRoot.Size = new System.Drawing.Size(173, 13);
+            this.labelRoot.TabIndex = 15;
+            this.labelRoot.Text = ": ...";
             // 
             // labelAndroid
             // 
@@ -285,9 +285,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(11, 65);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.Size = new System.Drawing.Size(30, 13);
             this.label8.TabIndex = 12;
-            this.label8.Text = "Arch CPU";
+            this.label8.Text = "Root";
             // 
             // label9
             // 
@@ -322,7 +322,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnInstall);
-            this.groupBox3.Controls.Add(this.labelStatus);
+            this.groupBox3.Controls.Add(this.labelRoot);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.labelAndroid);
             this.groupBox3.Controls.Add(this.label9);
@@ -372,7 +372,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnInstall;
-        private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Label labelRoot;
         private System.Windows.Forms.Label labelAndroid;
         private System.Windows.Forms.Label labelDevice;
         private System.Windows.Forms.Label label8;

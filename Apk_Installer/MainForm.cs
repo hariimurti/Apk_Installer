@@ -120,7 +120,7 @@ namespace Apk_Installer
             comboBox1.Items.Clear();
             labelDevice.Text = setLabel();
             labelAndroid.Text = setLabel();
-            labelStatus.Text = setLabel();
+            labelRoot.Text = setLabel();
             btnInstall.Enabled = false;
         }
 
@@ -132,11 +132,11 @@ namespace Apk_Installer
             string brand = ADB.Instance().Device.BuildProperties.Get("ro.product.brand");
             string name = ADB.Instance().Device.BuildProperties.Get("ro.product.name");
             string android = ADB.Instance().Device.BuildProperties.Get("ro.build.version.release");
-            string cpu = ADB.Instance().Device.BuildProperties.Get("ro.product.cpu.abi");
+            string root = ADB.Instance().IsRoot ? "Yes" : "No";
 
             labelDevice.Text = setLabel(UpperCaseFirst($"{brand} {name}"));
             labelAndroid.Text = setLabel(android);
-            labelStatus.Text = setLabel(cpu);
+            labelRoot.Text = setLabel(root);
         }
 
         private static string UpperCaseFirst(string text)
