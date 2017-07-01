@@ -36,6 +36,11 @@ namespace Apk_Installer
             return apk != null ? apk.PackVersionName : null;
         }
 
+        public string getSdkVersion()
+        {
+            return apk != null ? apk.SdkVersion : null;
+        }
+
         public Stream getIcon()
         {
             if (apk != null)

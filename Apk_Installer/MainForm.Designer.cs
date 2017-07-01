@@ -55,6 +55,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnInstall = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.labelSdk = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -63,6 +65,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelSdk);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.labelVersion);
             this.groupBox1.Controls.Add(this.labelName);
             this.groupBox1.Controls.Add(this.labelPackage);
@@ -84,7 +88,7 @@
             this.labelVersion.AutoEllipsis = true;
             this.labelVersion.Location = new System.Drawing.Point(75, 67);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(173, 13);
+            this.labelVersion.Size = new System.Drawing.Size(70, 13);
             this.labelVersion.TabIndex = 6;
             this.labelVersion.Text = ": ...";
             // 
@@ -120,7 +124,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 66);
+            this.label3.Location = new System.Drawing.Point(11, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 2;
@@ -335,6 +339,24 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "3. Connected Device";
             // 
+            // labelSdk
+            // 
+            this.labelSdk.AutoEllipsis = true;
+            this.labelSdk.Location = new System.Drawing.Point(198, 67);
+            this.labelSdk.Name = "labelSdk";
+            this.labelSdk.Size = new System.Drawing.Size(50, 13);
+            this.labelSdk.TabIndex = 8;
+            this.labelSdk.Text = ": ...";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(151, 67);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(26, 13);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Sdk";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,6 +410,8 @@
         private System.Windows.Forms.TextBox textPort;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelSdk;
+        private System.Windows.Forms.Label label12;
     }
 }
 

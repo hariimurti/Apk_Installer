@@ -70,6 +70,7 @@ namespace Apk_Installer
                 labelPackage.Text = setLabel(Apk.getPackageName());
                 labelName.Text = setLabel(Apk.getAppLabel());
                 labelVersion.Text = setLabel(Apk.getVersion());
+                labelSdk.Text = setLabel(Apk.getSdkVersion());
                 pictureBox1.Image = setIcon(Apk.getIcon());
                 btnInstall.Enabled = (comboBox1.Items.Count > 0) && Apk.isApk();
                 LoadedApk = Apk.isApk() ? fileApk : null;
@@ -79,6 +80,7 @@ namespace Apk_Installer
                 labelPackage.Text = setLabel();
                 labelName.Text = setLabel();
                 labelVersion.Text = setLabel();
+                labelSdk.Text = setLabel();
                 pictureBox1.Image = setIcon();
                 btnInstall.Enabled = false;
                 LoadedApk = null;
@@ -132,10 +134,11 @@ namespace Apk_Installer
             string brand = ADB.Instance().Device.BuildProperties.Get("ro.product.brand");
             string name = ADB.Instance().Device.BuildProperties.Get("ro.product.name");
             string android = ADB.Instance().Device.BuildProperties.Get("ro.build.version.release");
+            string sdk = ADB.Instance().Device.BuildProperties.Get("ro.build.version.sdk");
             string root = ADB.Instance().IsRoot ? "Yes" : "No";
 
             labelDevice.Text = setLabel(UpperCaseFirst($"{brand} {name}"));
-            labelAndroid.Text = setLabel(android);
+            labelAndroid.Text = setLabel($"{android} ( {sdk} )");
             labelRoot.Text = setLabel(root);
         }
 
