@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelSdk = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.labelPackage = new System.Windows.Forms.Label();
@@ -55,8 +57,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnInstall = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.labelSdk = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -82,6 +82,24 @@
             this.groupBox1.Text = "1. APK File ( Drag && Drop Here )";
             this.groupBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.groupBox1_DragDrop);
             this.groupBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.groupBox1_DragEnter);
+            // 
+            // labelSdk
+            // 
+            this.labelSdk.AutoEllipsis = true;
+            this.labelSdk.Location = new System.Drawing.Point(198, 67);
+            this.labelSdk.Name = "labelSdk";
+            this.labelSdk.Size = new System.Drawing.Size(50, 13);
+            this.labelSdk.TabIndex = 8;
+            this.labelSdk.Text = ": ...";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(151, 67);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(46, 13);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Min Sdk";
             // 
             // labelVersion
             // 
@@ -338,24 +356,6 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "3. Connected Device";
-            // 
-            // labelSdk
-            // 
-            this.labelSdk.AutoEllipsis = true;
-            this.labelSdk.Location = new System.Drawing.Point(198, 67);
-            this.labelSdk.Name = "labelSdk";
-            this.labelSdk.Size = new System.Drawing.Size(50, 13);
-            this.labelSdk.TabIndex = 8;
-            this.labelSdk.Text = ": ...";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(151, 67);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(26, 13);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "Sdk";
             // 
             // MainForm
             // 
