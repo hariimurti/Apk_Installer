@@ -131,6 +131,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pictureBox1.Location = new System.Drawing.Point(254, 20);
@@ -218,14 +219,15 @@
             // 
             // btnScan
             // 
+            this.btnScan.BackColor = System.Drawing.SystemColors.Window;
             this.btnScan.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnScan.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnScan.ForeColor = System.Drawing.Color.OrangeRed;
             this.btnScan.Location = new System.Drawing.Point(254, 44);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(60, 23);
             this.btnScan.TabIndex = 11;
             this.btnScan.Text = "Scan";
-            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.UseVisualStyleBackColor = false;
             this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // label5
@@ -239,14 +241,15 @@
             // 
             // btnConnect
             // 
+            this.btnConnect.BackColor = System.Drawing.SystemColors.Window;
             this.btnConnect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConnect.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnConnect.ForeColor = System.Drawing.Color.OrangeRed;
             this.btnConnect.Location = new System.Drawing.Point(254, 17);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(60, 23);
             this.btnConnect.TabIndex = 9;
             this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.UseVisualStyleBackColor = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // textIP
@@ -338,15 +341,16 @@
             // 
             // btnInstall
             // 
+            this.btnInstall.BackColor = System.Drawing.SystemColors.Window;
             this.btnInstall.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnInstall.Enabled = false;
-            this.btnInstall.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnInstall.ForeColor = System.Drawing.Color.OrangeRed;
             this.btnInstall.Location = new System.Drawing.Point(254, 19);
             this.btnInstall.Name = "btnInstall";
             this.btnInstall.Size = new System.Drawing.Size(60, 60);
             this.btnInstall.TabIndex = 16;
             this.btnInstall.Text = "Install";
-            this.btnInstall.UseVisualStyleBackColor = true;
+            this.btnInstall.UseVisualStyleBackColor = false;
             this.btnInstall.Click += new System.EventHandler(this.btnInstall_Click);
             // 
             // groupBox3
