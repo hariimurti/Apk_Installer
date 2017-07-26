@@ -50,32 +50,47 @@ namespace Apk_Installer
                 Console.WriteLine(ex.Message);
             }
 
-            ADB.Start();
+            if (!ADB.IsStarted)
+                ADB.Start();
         }
 
         private void InitializeApk(string fileApk = null)
         {
             if (File.Exists(fileApk) && fileApk.ToLower().EndsWith(".apk"))
             {
-                ApkFile Apk = new ApkFile(fileApk);
-                labelPackage.Text = setLabel(Apk.getPackageName());
-                labelName.Text = setLabel(Apk.getAppLabel());
-                labelVersion.Text = setLabel(Apk.getVersion());
-                labelSdk.Text = setLabel(Apk.getSdkVersion());
-                pictureBox1.Image = setIcon(Apk.getIcon());
-                btnInstall.Enabled = (comboBox1.Items.Count > 0) && Apk.isApk();
-                LoadedApk = Apk.isApk() ? fileApk : null;
+                try
+                {
+                    ApkFile Apk = new ApkFile(fileApk);
+                    labelPackage.Text = setLabel(Apk.getPackageName());
+                    labelName.Text = setLabel(Apk.getAppLabel());
+                    labelVersion.Text = setLabel(Apk.getVersion());
+                    labelSdk.Text = setLabel(Apk.getSdkVersion());
+                    pictureBox1.Image = setIcon(Apk.getIcon());
+                    btnInstall.Enabled = (comboBox1.Items.Count > 0) && Apk.isApk();
+                    LoadedApk = Apk.isApk() ? fileApk : null;
+                }
+                catch(Exception e)
+                {
+                    ClearApkInfo();
+                    MessageBox.Show($"Can't open file {Path.GetFileName(fileApk)}!\nReason: {e.Message}", "Something went wrong",
+                        MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
             else
             {
-                labelPackage.Text = setLabel();
-                labelName.Text = setLabel();
-                labelVersion.Text = setLabel();
-                labelSdk.Text = setLabel();
-                pictureBox1.Image = setIcon();
-                btnInstall.Enabled = false;
-                LoadedApk = null;
+                ClearApkInfo();
             }
+        }
+
+        private void ClearApkInfo()
+        {
+            labelPackage.Text = setLabel();
+            labelName.Text = setLabel();
+            labelVersion.Text = setLabel();
+            labelSdk.Text = setLabel();
+            pictureBox1.Image = setIcon();
+            btnInstall.Enabled = false;
+            LoadedApk = null;
         }
 
         private void ScanDevice(bool set = false)
@@ -114,7 +129,8 @@ namespace Apk_Installer
             comboBox1.Items.Clear();
             labelDevice.Text = setLabel();
             labelAndroid.Text = setLabel();
-            labelRoot.Text = setLabel();
+            labelDeviceSdk.Text = setLabel();
+            labelSerial.Text = setLabel();
             btnInstall.Enabled = false;
         }
 
@@ -127,11 +143,12 @@ namespace Apk_Installer
             //string name = ADB.Instance().Device.BuildProperties.Get("ro.product.name");
             string android = ADB.Instance().Device.BuildProperties.Get("ro.build.version.release");
             string sdk = ADB.Instance().Device.BuildProperties.Get("ro.build.version.sdk");
-            string root = ADB.Instance().IsRoot ? "Yes" : "No";
+            //string root = ADB.Instance().IsRoot ? "Yes" : "No";
 
-            labelAndroid.Text = setLabel($"{android} ( {sdk} )");
-            labelRoot.Text = setLabel(root);
             labelDevice.Text = setLabel(data.ToString());
+            labelAndroid.Text = setLabel(android);
+            labelDeviceSdk.Text = setLabel(sdk);
+            labelSerial.Text = setLabel(data.Id);
         }
 
         private static string UpperCaseFirst(string text)
