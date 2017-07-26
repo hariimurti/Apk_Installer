@@ -12,7 +12,8 @@ namespace Apk_Installer
             public bool register_apk { get; set; }
         }
 
-        private static string CONFIG_FILE = "config.ini";
+        private static string EXE_DIRECTORY = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        private static string CONFIG_FILE = Path.Combine(EXE_DIRECTORY, "config.json");
         private Data json_config;
         private static JsonSerializerSettings JSON_SETTINGS = new JsonSerializerSettings
         {
