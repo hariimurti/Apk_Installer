@@ -6,17 +6,25 @@ namespace Apk_Installer
     {
         public string Id { get; set; }
         public string Device { get; set; }
+        public string Model { get; set; }
         public DataModelDevicesItem DataModel { get; set; }
 
         public override string ToString()
         {
-            if (Device.Trim() != string.Empty)
+            if (this.Model != string.Empty)
             {
-                return $"{Device} ( {Id} )";
+                if (this.Device != string.Empty)
+                    return $"{this.Model} ( {this.Device} )";
+                else
+                    return this.Model;
+            }
+            else if (this.Device != string.Empty)
+            {
+                return this.Device;
             }
             else
             {
-                return Id;
+                return this.Id;
             }
         }
     }

@@ -92,6 +92,7 @@ namespace Apk_Installer
                     ComboboxItem item = new ComboboxItem();
                     item.Id = device.Serial;
                     item.Device = device.Device;
+                    item.Model = device.Model;
                     item.DataModel = device;
                     int index = comboBox1.Items.Add(item);
                     if (device.Serial.StartsWith(textIP.Text))
@@ -122,15 +123,15 @@ namespace Apk_Installer
             var data = (comboBox1.SelectedItem as ComboboxItem);
             ADB.SelectDevice(data.DataModel);
 
-            string brand = ADB.Instance().Device.BuildProperties.Get("ro.product.brand");
-            string name = ADB.Instance().Device.BuildProperties.Get("ro.product.name");
+            //string brand = ADB.Instance().Device.BuildProperties.Get("ro.product.brand");
+            //string name = ADB.Instance().Device.BuildProperties.Get("ro.product.name");
             string android = ADB.Instance().Device.BuildProperties.Get("ro.build.version.release");
             string sdk = ADB.Instance().Device.BuildProperties.Get("ro.build.version.sdk");
             string root = ADB.Instance().IsRoot ? "Yes" : "No";
 
-            labelDevice.Text = setLabel(UpperCaseFirst($"{brand} {name}"));
             labelAndroid.Text = setLabel($"{android} ( {sdk} )");
             labelRoot.Text = setLabel(root);
+            labelDevice.Text = setLabel(data.ToString());
         }
 
         private static string UpperCaseFirst(string text)
