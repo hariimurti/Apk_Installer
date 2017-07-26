@@ -18,13 +18,23 @@ namespace Apk_Installer
     public partial class MainForm : Form
     {
         private static string LoadedApk = null;
+        private Config config;
 
         public MainForm(string arg)
         {
             InitializeComponent();
 
             this.Text = Application.ProductName + " v" + Application.ProductVersion.Substring(0, 3);
-            FileAssociation.SetAssociation();
+
+            config = new Config();
+            textIP.Text = config.getIPaddress();
+            textPort.Text = config.getPort().ToString();
+            if (config.getRegisterApk())
+            {
+                bool setAssoc = FileAssociation.SetAssociation();
+                if (config.getRegisterApk() != setAssoc)
+                    config.setRegisterApk(setAssoc);
+            }
 
             groupBox1.AllowDrop = true;
             pictureBox1.Image = Properties.Resources.apk.ToBitmap();
@@ -213,6 +223,8 @@ namespace Apk_Installer
 
             if (!ADB.IsStarted) ADB.Start();
             await Task.Run(() => ADB.Connect(textIP.Text, textPort.Text));
+
+            config.setAdbWifi(textIP.Text, int.Parse(textPort.Text));
 
             setBusy(2, true);
             ScanDevice(true);

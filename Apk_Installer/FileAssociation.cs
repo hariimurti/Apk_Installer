@@ -69,14 +69,19 @@ namespace Apk_Installer
             return true;
         }
 
-        public static void SetAssociation()
+        public static bool SetAssociation()
         {
+            bool retval = true;
             if (!isRegistered())
             {
                 DialogResult askToSet = MessageBox.Show("Set this for default opening file apk?",
                     Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (askToSet == DialogResult.Yes) Register();
+                if (askToSet == DialogResult.Yes)
+                    Register();
+                else
+                    retval = false;
             }
+            return retval;
         }
     }
 }
