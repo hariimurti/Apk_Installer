@@ -114,11 +114,16 @@ namespace Apk_Installer
             {
                 if (device.Device != null)
                 {
+                    ADB.SelectDevice(device);
                     ComboboxItem item = new ComboboxItem();
-                    item.Id = device.Serial;
-                    item.Device = device.Device;
-                    item.Model = device.Model;
                     item.DataModel = device;
+                    item.Id = device.Serial;
+                    string brand = ADB.Instance().Device.BuildProperties.Get("ro.product.brand");
+                    item.Brand = UpperCaseFirst(brand);
+                    string model = ADB.Instance().Device.BuildProperties.Get("ro.product.model");
+                    item.Model = UpperCaseFirst(model);
+                    string codename = ADB.Instance().Device.BuildProperties.Get("ro.product.device");
+                    item.CodeName = UpperCaseFirst(codename);
                     int index = comboBox1.Items.Add(item);
                     if (device.Serial.StartsWith(textIP.Text))
                     {
@@ -148,15 +153,10 @@ namespace Apk_Installer
         {
             var data = (comboBox1.SelectedItem as ComboboxItem);
             ADB.SelectDevice(data.DataModel);
-
-            //string brand = ADB.Instance().Device.BuildProperties.Get("ro.product.brand");
-            //string name = ADB.Instance().Device.BuildProperties.Get("ro.product.name");
-            string android = ADB.Instance().Device.BuildProperties.Get("ro.build.version.release");
-            string sdk = ADB.Instance().Device.BuildProperties.Get("ro.build.version.sdk");
-            //string root = ADB.Instance().IsRoot ? "Yes" : "No";
-
             labelDevice.Text = setLabel(data.ToString());
+            string android = ADB.Instance().Device.BuildProperties.Get("ro.build.version.release");
             labelAndroid.Text = setLabel(android);
+            string sdk = ADB.Instance().Device.BuildProperties.Get("ro.build.version.sdk");
             labelDeviceSdk.Text = setLabel(sdk);
             labelSerial.Text = setLabel(data.Id);
         }
