@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelSdk = new System.Windows.Forms.Label();
@@ -57,8 +58,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnInstall = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.labelDeviceSdk = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -374,15 +376,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "3. Connected Device";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(151, 42);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(26, 13);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Sdk";
-            // 
             // labelDeviceSdk
             // 
             this.labelDeviceSdk.AutoEllipsis = true;
@@ -391,6 +384,15 @@
             this.labelDeviceSdk.Size = new System.Drawing.Size(47, 13);
             this.labelDeviceSdk.TabIndex = 18;
             this.labelDeviceSdk.Text = ": ...";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(151, 42);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(26, 13);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Sdk";
             // 
             // MainForm
             // 
@@ -407,6 +409,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "APK Installer";
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -450,6 +453,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label labelDeviceSdk;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

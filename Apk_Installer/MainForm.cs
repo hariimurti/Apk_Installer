@@ -44,6 +44,17 @@ namespace Apk_Installer
             ScanDevice();
         }
 
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textIP, "Input target ip address of adb wireless");
+            toolTip1.SetToolTip(textPort, "Input target port of adb wireless. default is 5555");
+            toolTip1.SetToolTip(groupBox1, "You can drag and drop apk file in here, and see what happen");
+            toolTip1.SetToolTip(comboBox1, "Select available device what you want");
+            toolTip1.SetToolTip(btnScan, "Scan connected device");
+            toolTip1.SetToolTip(btnConnect, "Connect to adb wireless");
+            toolTip1.SetToolTip(btnInstall, "Install loaded apk into device");
+        }
+
         private void InitializeAdb()
         {
             try
