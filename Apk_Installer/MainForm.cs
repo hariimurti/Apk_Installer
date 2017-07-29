@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -18,6 +13,10 @@ namespace Apk_Installer
     public partial class MainForm : Form
     {
         private static string LoadedApk = null;
+        private static string ApkName = null;
+        private static string DeviceName = null;
+        private static int ApkSdk = 0;
+        private static int DeviceSdk = 0;
         private Config config;
 
         public MainForm(string arg)
@@ -82,13 +81,25 @@ namespace Apk_Installer
                 try
                 {
                     ApkFile Apk = new ApkFile(fileApk);
-                    labelPackage.Text = setLabel(Apk.getPackageName());
-                    labelName.Text = setLabel(Apk.getAppLabel());
-                    labelVersion.Text = setLabel(Apk.getVersion());
-                    labelSdk.Text = setLabel(Apk.getSdkVersion());
-                    pictureBox1.Image = setIcon(Apk.getIcon());
-                    btnInstall.Enabled = (comboBox1.Items.Count > 0) && Apk.isApk();
-                    LoadedApk = Apk.isApk() ? fileApk : null;
+                    if (Apk.isApk())
+                    {
+                        labelPackage.Text = setLabel(Apk.getPackageName());
+                        labelName.Text = setLabel(Apk.getAppLabel());
+                        labelVersion.Text = setLabel(Apk.getVersion());
+                        labelSdk.Text = setLabel(Apk.getSdkVersion());
+                        pictureBox1.Image = setIcon(Apk.getIcon());
+                        btnInstall.Enabled = (comboBox1.Items.Count > 0) && Apk.isApk();
+                        LoadedApk = fileApk;
+
+                        ApkName = $"{Apk.getAppLabel()} v{Apk.getVersion()}";
+                        int.TryParse(Apk.getSdkVersion(), out ApkSdk);
+                    }
+                    else
+                    {
+                        ClearApkInfo();
+                        MessageBox.Show($"File {Path.GetFileName(fileApk)} is not APK!", "Something went wrong",
+                            MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
                 }
                 catch(Exception e)
                 {
@@ -112,6 +123,9 @@ namespace Apk_Installer
             pictureBox1.Image = setIcon();
             btnInstall.Enabled = false;
             LoadedApk = null;
+
+            ApkName = String.Empty;
+            ApkSdk = 0;
         }
 
         private void ScanDevice(bool set = false)
@@ -158,6 +172,9 @@ namespace Apk_Installer
             labelDeviceSdk.Text = setLabel();
             labelSerial.Text = setLabel();
             btnInstall.Enabled = false;
+
+            DeviceName = string.Empty;
+            DeviceSdk = 0;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -170,6 +187,9 @@ namespace Apk_Installer
             string sdk = ADB.Instance().Device.BuildProperties.Get("ro.build.version.sdk");
             labelDeviceSdk.Text = setLabel(sdk);
             labelSerial.Text = setLabel(data.Id);
+
+            DeviceName = data.ToString();
+            int.TryParse(sdk, out DeviceSdk);
         }
 
         private static string UpperCaseFirst(string text)
@@ -255,27 +275,37 @@ namespace Apk_Installer
         {
             if (LoadedApk != null)
             {
-                if (ADB.IsStarted)
+                if (ApkSdk <= DeviceSdk)
                 {
-                    setBusy(3, true);
-                    await Task.Run(() =>
+                    if (ADB.IsStarted)
                     {
-                        if (ADB.Instance().Install(LoadedApk, "-r"))
+                        setBusy(3, true);
+                        await Task.Run(() =>
                         {
-                            MessageBox.Show("Installation Success...", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                            LoadedApk = null;
-                        }
-                        else
-                            MessageBox.Show("Something went wrong!!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    });
+                            if (ADB.Instance().Install(LoadedApk, "-r"))
+                            {
+                                MessageBox.Show($"Successfully install {ApkName} on {DeviceName}!", ApkName,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                InitializeApk();
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Something went wrong!!!\nCan't install those apk into {DeviceName}.", ApkName,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        });
 
-                    if (LoadedApk == null)
-                        InitializeApk();
-                    setBusy(3, false);
+                        setBusy(3, false);
+                    }
+                    else
+                    {
+                        MessageBox.Show("ADB is not running!!! Solve: step no.2", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("ADB is not running!!! Solve: step no.2", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"This apk require a sdk min {ApkSdk}, and your device is {DeviceSdk}.", "Device is not compatible!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
