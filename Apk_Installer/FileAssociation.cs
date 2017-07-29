@@ -74,9 +74,11 @@ namespace Apk_Installer
             bool retval = true;
             if (!isRegistered())
             {
-                DialogResult askToSet = MessageBox.Show("Set this for default opening file apk?",
+                DialogResult setDefault = 
+                    MessageBox.Show($"{Application.ProductName} is not currently set as default for opening file apk. Would you like to make it default?",
                     Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (askToSet == DialogResult.Yes)
+
+                if (setDefault == DialogResult.Yes)
                     Register();
                 else
                     retval = false;

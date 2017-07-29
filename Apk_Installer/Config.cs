@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace Apk_Installer
@@ -9,11 +10,11 @@ namespace Apk_Installer
         {
             public string ip_address { get; set; }
             public int port { get; set; }
-            public bool register_apk { get; set; }
+            public bool check_ext { get; set; }
         }
-
-        private static string EXE_DIRECTORY = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-        private static string CONFIG_FILE = Path.Combine(EXE_DIRECTORY, "config.json");
+        
+        private static string LOCAL_DATA = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "APK Installer");
+        private static string CONFIG_FILE = Path.Combine(LOCAL_DATA, "config.json");
         private Data json_config;
         private static JsonSerializerSettings JSON_SETTINGS = new JsonSerializerSettings
         {
@@ -25,6 +26,9 @@ namespace Apk_Installer
         {
             string raw_config;
 
+            if (!Directory.Exists(LOCAL_DATA))
+                Directory.CreateDirectory(LOCAL_DATA);
+
             if (File.Exists(CONFIG_FILE))
             {
                 raw_config = File.ReadAllText(CONFIG_FILE);
@@ -35,7 +39,7 @@ namespace Apk_Installer
                 {
                     ip_address = "192.168.1.101",
                     port = 5555,
-                    register_apk = true
+                    check_ext = true
                 };
                 raw_config = JsonConvert.SerializeObject(data, JSON_SETTINGS);
                 File.WriteAllText(CONFIG_FILE, raw_config);
@@ -50,9 +54,9 @@ namespace Apk_Installer
             File.WriteAllText(CONFIG_FILE, raw_config);
         }
 
-        public bool getRegisterApk()
+        public bool getCheckExt()
         {
-            return json_config.register_apk;
+            return json_config.check_ext;
         }
 
         public string getIPaddress()
@@ -65,9 +69,9 @@ namespace Apk_Installer
             return json_config.port;
         }
 
-        public void setRegisterApk(bool value)
+        public void setCheckExt(bool value)
         {
-            json_config.register_apk = value;
+            json_config.check_ext = value;
             this.Save();
         }
 

@@ -29,11 +29,11 @@ namespace Apk_Installer
             config = new Config();
             textIP.Text = config.getIPaddress();
             textPort.Text = config.getPort().ToString();
-            if (config.getRegisterApk())
+            if (config.getCheckExt())
             {
                 bool setAssoc = FileAssociation.SetAssociation();
-                if (config.getRegisterApk() != setAssoc)
-                    config.setRegisterApk(setAssoc);
+                if (config.getCheckExt() != setAssoc)
+                    config.setCheckExt(setAssoc);
             }
 
             groupBox1.AllowDrop = true;
