@@ -61,8 +61,13 @@ namespace Apk_Installer
                 if (registryKey == null)
                     return false;
 
-                string executable = Path.GetFullPath(System.Reflection.Assembly.GetEntryAssembly().Location);
-                if (registryKey.OpenSubKey("Shell\\Open\\Command").GetValue("").ToString() != $"\"{executable}\" \"%1\"")
+                var executable = Path.GetFullPath(System.Reflection.Assembly.GetEntryAssembly().Location);
+                var regValue = registryKey.OpenSubKey("Shell\\Open\\Command").GetValue("");
+
+                if (regValue == null)
+                    return false;
+
+                if (regValue.ToString() != $"\"{executable}\" \"%1\"")
                     return false;
             }
 
@@ -74,14 +79,22 @@ namespace Apk_Installer
             bool retval = true;
             if (!isRegistered())
             {
-                DialogResult setDefault = 
-                    MessageBox.Show($"{Application.ProductName} is not currently set as default for opening file apk. Would you like to make it default?",
+                var setDefault =  MessageBox.Show(
+                    $"{Application.ProductName} is not currently set as default for apk file.\nWould you like to make it default?",
                     Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (setDefault == DialogResult.Yes)
+                {
                     Register();
+                }
                 else
-                    retval = false;
+                {
+                    var askAgain = MessageBox.Show(
+                        $"Always check if {Application.ProductName} is your default for apk file?",
+                        Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    retval = (askAgain == DialogResult.Yes);
+                }
             }
             return retval;
         }
