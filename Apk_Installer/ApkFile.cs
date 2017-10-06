@@ -1,15 +1,15 @@
-﻿using System.IO;
-using System.IO.Compression;
-using AndroidCtrl;
+﻿using AndroidCtrl;
 using AndroidCtrl.AAPT;
+using System.IO;
+using System.IO.Compression;
 
 namespace Apk_Installer
 {
-    class ApkFile
+    internal class ApkFile
     {
         private DataModelDumpBadging apk;
         private string pathApk;
-        
+
         public ApkFile(string pathApk)
         {
             this.pathApk = pathApk;

@@ -2,7 +2,7 @@
 
 namespace Apk_Installer
 {
-    class ComboboxItem
+    internal class ComboboxItem
     {
         public string Id { get; set; }
         public string Brand { get; set; }
@@ -21,7 +21,7 @@ namespace Apk_Installer
                 else
                     return this.Brand;
             }
-            else if(this.Model != string.Empty)
+            else if (this.Model != string.Empty)
             {
                 if ((this.CodeName != string.Empty) && (this.Model != this.CodeName))
                     return $"{this.Model} ( {this.CodeName} )";

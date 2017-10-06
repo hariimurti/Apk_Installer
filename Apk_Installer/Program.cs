@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Apk_Installer
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
@@ -16,7 +12,7 @@ namespace Apk_Installer
         /// - binary.exe -unreg     | unregister extension .apk
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -31,7 +27,7 @@ namespace Apk_Installer
                         break;
                     }
                 }
-                
+
                 if (args[0].ToLower() == "-unreg")
                 {
                     FileAssociation.UnRegister();

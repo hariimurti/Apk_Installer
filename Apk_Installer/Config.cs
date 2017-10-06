@@ -4,18 +4,19 @@ using System.IO;
 
 namespace Apk_Installer
 {
-    class Config
+    internal class Config
     {
-        class Data
+        private class Data
         {
             public string ip_address { get; set; }
             public int port { get; set; }
             public bool check_ext { get; set; }
         }
-        
+
         private static string LOCAL_DATA = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "APK Installer");
         private static string CONFIG_FILE = Path.Combine(LOCAL_DATA, "config.json");
         private Data json_config;
+
         private static JsonSerializerSettings JSON_SETTINGS = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented,

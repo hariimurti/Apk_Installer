@@ -1,12 +1,12 @@
-﻿using System;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
-using AndroidCtrl;
+﻿using AndroidCtrl;
 using AndroidCtrl.ADB;
 using AndroidCtrl.Tools;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Apk_Installer
 {
@@ -101,7 +101,7 @@ namespace Apk_Installer
                             MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     ClearApkInfo();
                     MessageBox.Show($"Can't open file {Path.GetFileName(fileApk)}!\nReason: {e.Message}", "Something went wrong",
@@ -342,6 +342,7 @@ namespace Apk_Installer
         }
 
         private bool onValidation = false;
+
         private void txtValidation(object sender, EventArgs e)
         {
             if (!onValidation)

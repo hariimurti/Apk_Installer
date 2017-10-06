@@ -1,13 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Apk_Installer
 {
-    class FileAssociation
+    internal class FileAssociation
     {
         private static string APK_EXTENSION = ".apk";
         private static string APK_FILE = "apkfile";
@@ -26,7 +24,7 @@ namespace Apk_Installer
                     registryKey.CreateSubKey("Shell\\Open\\Command").SetValue("", $"\"{executable}\" \"%1\"");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Registry Error: " + ex.Message);
             }
@@ -79,7 +77,7 @@ namespace Apk_Installer
             bool retval = true;
             if (!isRegistered())
             {
-                var setDefault =  MessageBox.Show(
+                var setDefault = MessageBox.Show(
                     $"{Application.ProductName} is not currently set as default for apk file.\nWould you like to make it default?",
                     Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
