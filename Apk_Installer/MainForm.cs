@@ -23,7 +23,7 @@ namespace Apk_Installer
         {
             InitializeComponent();
 
-            this.Text = Application.ProductName + " v" + Application.ProductVersion.Substring(0, 3);
+            this.Text = Application.ProductName + " v" + Application.ProductVersion;
 
             config = new Config();
             textIP.Text = config.getIPaddress();
