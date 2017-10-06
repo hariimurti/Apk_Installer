@@ -62,7 +62,7 @@ namespace Apk_Installer
                     return false;
 
                 var executable = Path.GetFullPath(System.Reflection.Assembly.GetEntryAssembly().Location);
-                var regValue = registryKey.OpenSubKey("Shell\\Open\\Command").GetValue("");
+                var regValue = registryKey.OpenSubKey("Shell\\Open\\Command")?.GetValue("");
 
                 if (regValue == null)
                     return false;
